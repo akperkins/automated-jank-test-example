@@ -6,7 +6,12 @@ import kotlin.concurrent.thread
 import kotlin.collections.*
 
 /**
- * Created by perkinsa on 6/6/17.
+ * Created by Andre Perkins (akperkins1@gmail.com) on 6/6/17.
+ *
+ * Kotlin script
+ *
+ * A simple script that executes a UI automation tests while, simultaneously, querying the Jank information of
+ * the connected device via gfxinfo and then outputs a subset of the results.
  */
 
 fun Map<String, String>.toJson(): String {
@@ -14,11 +19,11 @@ fun Map<String, String>.toJson(): String {
         return "{}"
     }
     return StringBuilder("")
-        .append("{")
-        .append("\n")
-        .append(this.map { (k, v) -> "  \"$k\": \"$v\"" }.reduce {o, n -> "$o,\n$n" })
-        .append("\n}")
-        .toString()
+            .append("{")
+            .append("\n")
+            .append(this.map { (k, v) -> "  \"$k\": \"$v\"" }.reduce {o, n -> "$o,\n$n" })
+            .append("\n}")
+            .toString()
 }
 
 fun Map<String, String>.toXml(): String {
@@ -26,7 +31,7 @@ fun Map<String, String>.toXml(): String {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<gfxinfo />"
     }
     val json: StringBuilder = StringBuilder("")
-        .append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<gfxinfo>\n")
+            .append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<gfxinfo>\n")
     this.forEach { key, entry ->
         var xmlValidKey = key.replace(" ", "_")
         if (xmlValidKey.startsWithDigit()){
@@ -71,7 +76,7 @@ private fun extract_gfx_info(apkName: String) = "adb shell dumpsys gfxinfo $apkN
 
 private fun app_process_still_alive(current_stats: String) = !current_stats.contains("No process found for:")
 
-private fun startTest(startTestRunnerCommand: String) = "adb shell am instrument $startTestRunnerCommand".runCommand()
+private fun startTest(startTestRunnerCommand: String) = startTestRunnerCommand.runCommand()
 
 
 private fun String.runCommand(): String {

@@ -9,3 +9,11 @@ reports
 local.properties
 .idea
 build
+
+Output.txt
+Output.json
+Output.xml
+main.jar
+performanceTests/Output.txt
+performanceTests/Output.json
+performanceTests/Output.xml
